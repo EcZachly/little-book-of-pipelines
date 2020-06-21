@@ -1,0 +1,11 @@
+# Compiled classes
+*.class
+# Gradle files
+.gralde
+# IntelliJ IDEA files
+.idea
+# Build files
+build
+# Log files
+*.log
+logs

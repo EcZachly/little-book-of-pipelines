@@ -1,0 +1,45 @@
+plugins {
+    id "scala"
+    id "com.github.johnrengelman.shadow" version "${shadowJarPluginVersion}"
+}
+
+group "${projectGroup}"
+version "${projectVersion}"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: "org.scala-lang", name:"scala-library", version: "${scalaMajorVersion}.${scalaMinorVersion}"
+
+    compileOnly group: "org.apache.spark", name: "spark-core_${scalaMajorVersion}", version: "${apacheSparkVersion}"
+    compileOnly group: "org.apache.spark", name: "spark-sql_${scalaMajorVersion}", version: "${apacheSparkVersion}"
+    
+    testImplementation group: "org.scalatest", name: "scalatest_${scalaMajorVersion}", version: "${scalaTestVersion}"
+}
+
+configurations {
+    testImplementation.extendsFrom compileOnly
+}
+
+task scalaTest(dependsOn: ['testClasses'], type: JavaExec) {
+    main = 'org.scalatest.tools.Runner'
+    args = ['-R', 'build/classes/scala/test', '-o']
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+test.dependsOn scalaTest
+
+shadowJar {
+    mergeServiceFiles()
+    zip64 true
+    manifest {
+        attributes "Main-Class": "${mainClass}"
+    }
+    archiveFileName.set("${getArchiveBaseName().get()}-${projectVersion}.${getArchiveExtension().get()}")
+}
+
+clean.doFirst {
+    delete "logs/"
+}
