@@ -22,5 +22,5 @@ From the root of the project execute the below commands
 
 ## Run
 ```shell script
-spark-submit --master local[*] build/libs/spark-boilerplate-1.0.jar
+spark-submit --master yarn --deploy-mode cluster build/libs/spark-boilerplate-1.0.jar
 ```
