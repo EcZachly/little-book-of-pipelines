@@ -13,11 +13,11 @@ From the root of the project execute the below commands
 ```
 - To build jar
 ```shell script
-./gradlew shadowJar
+./gradlew build
 ```
 - All combined
 ```shell script
-./gradlew clean test shadowJar
+./gradlew clean test build
 ```
 
 ## Run

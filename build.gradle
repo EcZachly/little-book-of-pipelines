@@ -1,6 +1,5 @@
 plugins {
     id "scala"
-    id "com.github.johnrengelman.shadow" version "${shadowJarPluginVersion}"
 }
 
 group "${projectGroup}"
@@ -31,11 +30,12 @@ task scalaTest(dependsOn: ['testClasses'], type: JavaExec) {
 
 test.dependsOn scalaTest
 
-shadowJar {
-    mergeServiceFiles()
-    zip64 true
+jar {
     manifest {
         attributes "Main-Class": "${mainClass}"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
     archiveFileName.set("${getArchiveBaseName().get()}-${projectVersion}.${getArchiveExtension().get()}")
 }
