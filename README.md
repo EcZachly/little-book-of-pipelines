@@ -1,3 +1,4 @@
+# Little Book of Pipelines Example
 
 Does your pipeline have over 10 unique upstream sources? Do you experience painful backfills? Do you want cleaner lines of responsibility? 
 
@@ -14,3 +15,21 @@ Try out the following pattern:
 
 5. Transform the Scala enum into a “little book” Hive table that keeps track of all the groups and items. This table can also be used by data quality and dashboarding 
 
+## Build instructions
+From the root of the project execute the below commands
+- To clear all compiled classes, build and log directories
+```shell script
+./gradlew clean
+```
+- To run tests
+```shell script
+./gradlew test
+```
+- To build jar
+```shell script
+./gradlew build
+```
+- All combined
+```shell script
+./gradlew clean test build
+```
